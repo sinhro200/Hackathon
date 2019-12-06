@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MentorApp</string>
+    <string name="chatWithMentor">Чат с ментором</string>
+</resources>
