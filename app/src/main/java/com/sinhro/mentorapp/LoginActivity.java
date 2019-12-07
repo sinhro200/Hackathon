@@ -9,9 +9,11 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.sinhro.mentorapp.API.MyRequestService;
 import com.sinhro.mentorapp.API.VkApi;
 import com.sinhro.mentorapp.Model.Task;
 import com.sinhro.mentorapp.Model.TasksList;
+import com.sinhro.mentorapp.Utils.MyLogger;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -34,7 +36,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                playWebView();
+                MyRequestService.test(getApplicationContext());
+                System.out.println("\n_____");
+                System.out.println(MyLogger.getInstance().getLogs());
+                System.out.println("\n_____");
+
                 moveToTasks();
+
+
+
             }
         });
     }

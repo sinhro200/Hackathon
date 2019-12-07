@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.sinhro.mentorapp.API.MyRequestService;
 import com.sinhro.mentorapp.Model.TasksList;
+import com.sinhro.mentorapp.Utils.MyLogger;
 
 public class TaskListActivity extends AppCompatActivity {
     private ListView listView;
@@ -41,16 +43,14 @@ public class TaskListActivity extends AppCompatActivity {
 //        ExampleFragment fragment = new ExampleFragment();
 //        fragmentTransaction.add(R.id.fragment_container, fragment);
 //        fragmentTransaction.commit();
-
-
-
-
         TasksList tasks = getTasks();
         listView.setAdapter(
                 new TasksListAdapter(
-                        tasks,getApplicationContext()
+                        tasks,
+                        getApplicationContext()
                 )
         );
+
 
     }
 

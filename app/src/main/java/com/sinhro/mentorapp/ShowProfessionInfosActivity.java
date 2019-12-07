@@ -34,7 +34,7 @@ public class ShowProfessionInfosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profession_infos_activity);
 
-        professionInfos_listView.setAdapter();
+//        professionInfos_listView.setAdapter();
 
 
     }

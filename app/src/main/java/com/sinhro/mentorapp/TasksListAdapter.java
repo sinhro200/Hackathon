@@ -13,6 +13,8 @@ import com.sinhro.mentorapp.Model.FullTask;
 import com.sinhro.mentorapp.Model.Task;
 import com.sinhro.mentorapp.Model.TasksList;
 
+import java.util.function.Consumer;
+
 public class TasksListAdapter implements ListAdapter {
     private TasksList tasksList;
     private Context context;
@@ -76,13 +78,16 @@ public class TasksListAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,FullTaskActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 FullTask fullTask = new FullTask(
                         tasksList.getTasks().get(position),
                         ("task #" + position)
                 );
                 intent.putExtra(FullTask.class.getSimpleName(),fullTask);
+
                 context.startActivity(intent);
+                //context.startActivity(intent);
             }
         });
 
