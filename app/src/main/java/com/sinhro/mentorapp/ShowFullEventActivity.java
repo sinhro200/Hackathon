@@ -7,20 +7,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sinhro.mentorapp.Model.FullTask;
+import com.sinhro.mentorapp.Model.FullEvent;
 
-public class FullTaskActivity extends AppCompatActivity {
+public class ShowFullEventActivity extends AppCompatActivity {
 
     private LinearLayout titleLinearLayout;
     private TextView taskTitleTextView,
-            taskDescriptionTextView,mentorTextView;
+            taskDescriptionTextView;
 
     private void findViews(){
-        titleLinearLayout = findViewById(R.id.fullTask_title_layout);
+        titleLinearLayout = findViewById(R.id.fullEvent_title_layout);
         View titleView = getLayoutInflater().inflate(
-                R.layout.tasks_title,titleLinearLayout,false
+                R.layout.events_title,titleLinearLayout,false
         );
-        LinearLayout home = titleView.findViewById(R.id.tasks_title_leftButton);
+        LinearLayout home = titleView.findViewById(R.id.events_title_leftButton);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,28 +29,26 @@ public class FullTaskActivity extends AppCompatActivity {
         });
         titleLinearLayout.addView(titleView);
 
-        mentorTextView = findViewById(R.id.fullTask_body_mentor_textView);
-        taskDescriptionTextView= findViewById(R.id.fullTask_body_taskDescription_textView);
-        taskTitleTextView= findViewById(R.id.fullTask_body_taskTitle_textView);
+        taskDescriptionTextView= findViewById(R.id.fullEvent_body_taskDescription_textView);
+        taskTitleTextView= findViewById(R.id.fullEvent_body_taskTitle_textView);
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_info_activity);
+        setContentView(R.layout.event_info_activity);
 
         findViews();
 
-        FullTask task = getCurrentTask();
+        FullEvent task = getCurrentTask();
 
-        taskTitleTextView.setText(task.getTask().getTitle());
         taskDescriptionTextView.setText(task.getDescription());
     }
 
-    private FullTask getCurrentTask(){
+    private FullEvent getCurrentTask(){
         Bundle arguments = getIntent().getExtras();
-        FullTask tasksList = null;
+        FullEvent tasksList = null;
         if (arguments!= null)
-            tasksList = (FullTask) arguments.getSerializable(FullTask.class.getSimpleName());
+            tasksList = (FullEvent) arguments.getSerializable(FullEvent.class.getSimpleName());
         return tasksList;
     }
 }

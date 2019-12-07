@@ -11,8 +11,10 @@ import android.widget.LinearLayout;
 
 import com.sinhro.mentorapp.API.MyRequestService;
 import com.sinhro.mentorapp.API.VkApi;
-import com.sinhro.mentorapp.Model.Task;
-import com.sinhro.mentorapp.Model.TasksList;
+import com.sinhro.mentorapp.Model.EventsList;
+import com.sinhro.mentorapp.Model.FullEvent;
+import com.sinhro.mentorapp.Model.ProfessionInfo;
+import com.sinhro.mentorapp.Model.ProfessionsList;
 import com.sinhro.mentorapp.Utils.MyLogger;
 
 import java.io.IOException;
@@ -41,25 +43,40 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(MyLogger.getInstance().getLogs());
                 System.out.println("\n_____");
 
-                moveToTasks();
-
+//                moveToTasks();
+                    moveToProfessions();
 
 
             }
         });
     }
 
+    private void moveToProfessions(){
+        Intent intent = new Intent(LoginActivity.this, ShowProfessionsActivity.class);
+        List<ProfessionInfo> professions = new LinkedList<>();
+
+        professions.add(new ProfessionInfo("prof1",0.2));
+        professions.add(new ProfessionInfo("prof2",0.3));
+        professions.add(new ProfessionInfo("prof3",0.4));
+        professions.add(new ProfessionInfo("prof4",0.1));
+        ProfessionsList profs = new ProfessionsList(professions);
+
+        intent.putExtra(ProfessionsList.class.getSimpleName(),profs);
+
+        startActivity(intent);
+
+    }
 
     private void moveToTasks(){
-        Intent intent = new Intent(LoginActivity.this,TaskListActivity.class);
-        List<Task> taskList = new LinkedList<>();
-        taskList.add(new Task("da"));
-        taskList.add(new Task("math"));
-        taskList.add(new Task("c++"));
-        taskList.add(new Task("c#"));
-        TasksList tasks = new TasksList(taskList);
+        Intent intent = new Intent(LoginActivity.this, ShowEventsListActivity.class);
+        List<FullEvent> eventsList = new LinkedList<>();
 
-        intent.putExtra(TasksList.class.getSimpleName(),tasks);
+        eventsList.add(new FullEvent("111","222","12:12","com1",1.1,2.2));
+        eventsList.add(new FullEvent("100","566","00:12","com1",13.1,266.2));
+        eventsList.add(new FullEvent("122","212","23:45","com1",13.31,25.2));
+        EventsList tasks = new EventsList(eventsList);
+
+        intent.putExtra(EventsList.class.getSimpleName(),tasks);
 
         startActivity(intent);
 

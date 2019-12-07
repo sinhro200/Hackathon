@@ -7,19 +7,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.sinhro.mentorapp.API.MyRequestService;
-import com.sinhro.mentorapp.Model.TasksList;
-import com.sinhro.mentorapp.Utils.MyLogger;
+import com.sinhro.mentorapp.Model.EventsList;
 
-public class TaskListActivity extends AppCompatActivity {
+public class ShowEventsListActivity extends AppCompatActivity {
     private ListView listView;
     private LinearLayout titleLinearLayout;
     private void initAllViews(){
-        titleLinearLayout = findViewById(R.id.tasks_title_layout);
+        titleLinearLayout = findViewById(R.id.events_title_layout);
         View titleView = getLayoutInflater().inflate(
-                R.layout.tasks_title,titleLinearLayout,false
+                R.layout.events_title,titleLinearLayout,false
         );
-        LinearLayout home = titleView.findViewById(R.id.tasks_title_leftButton);
+        LinearLayout home = titleView.findViewById(R.id.events_title_leftButton);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,13 +26,13 @@ public class TaskListActivity extends AppCompatActivity {
         });
         titleLinearLayout.addView(titleView);
 
-        listView = findViewById(R.id.tasks_listView);
+        listView = findViewById(R.id.events_listView);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tasks_activity);
+        setContentView(R.layout.events_activity);
 
         initAllViews();
 
@@ -43,10 +41,10 @@ public class TaskListActivity extends AppCompatActivity {
 //        ExampleFragment fragment = new ExampleFragment();
 //        fragmentTransaction.add(R.id.fragment_container, fragment);
 //        fragmentTransaction.commit();
-        TasksList tasks = getTasks();
+        EventsList events = getEvents();
         listView.setAdapter(
-                new TasksListAdapter(
-                        tasks,
+                new EventsListAdapter(
+                        events,
                         getApplicationContext()
                 )
         );
@@ -54,11 +52,11 @@ public class TaskListActivity extends AppCompatActivity {
 
     }
 
-    private TasksList getTasks(){
+    private EventsList getEvents(){
         Bundle arguments = getIntent().getExtras();
-        TasksList tasksList = null;
+        EventsList eventsList = null;
         if (arguments!= null)
-            tasksList = (TasksList) arguments.getSerializable(TasksList.class.getSimpleName());
-        return tasksList;
+            eventsList = (EventsList) arguments.getSerializable(EventsList.class.getSimpleName());
+        return eventsList;
     }
 }

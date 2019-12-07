@@ -9,18 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.sinhro.mentorapp.Model.FullTask;
-import com.sinhro.mentorapp.Model.Task;
-import com.sinhro.mentorapp.Model.TasksList;
+import com.sinhro.mentorapp.Model.FullEvent;
+import com.sinhro.mentorapp.Model.EventsList;
 
-import java.util.function.Consumer;
-
-public class TasksListAdapter implements ListAdapter {
-    private TasksList tasksList;
+public class EventsListAdapter implements ListAdapter {
+    private EventsList eventsList;
     private Context context;
 
-    public TasksListAdapter(TasksList tasksList,Context context) {
-        this.tasksList = tasksList;
+    public EventsListAdapter(EventsList eventsList, Context context) {
+        this.eventsList = eventsList;
         this.context = context;
     }
 
@@ -46,12 +43,12 @@ public class TasksListAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return tasksList.getTasks().size();
+        return eventsList.getEvents().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return tasksList.getTasks().get(position);
+        return eventsList.getEvents().get(position);
     }
 
     @Override
@@ -68,26 +65,21 @@ public class TasksListAdapter implements ListAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.tasks_list_item, null);
+            convertView = inflater.inflate(R.layout.event_list_item, null);
         }
 
-        TextView textView = convertView.findViewById(R.id.tasks_list_item_textView);
-        textView.setText(tasksList.getTasks().get(position).getTitle());
+        TextView textView = convertView.findViewById(R.id.events_list_item_textView);
+        textView.setText(eventsList.getEvents().get(position).getTitle());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,FullTaskActivity.class);
+                Intent intent = new Intent(context, ShowFullEventActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                FullTask fullTask = new FullTask(
-                        tasksList.getTasks().get(position),
-                        ("task #" + position)
-                );
-                intent.putExtra(FullTask.class.getSimpleName(),fullTask);
+                intent.putExtra(FullEvent.class.getSimpleName(), eventsList.getEvents().get(position));
 
                 context.startActivity(intent);
-                //context.startActivity(intent);
             }
         });
 

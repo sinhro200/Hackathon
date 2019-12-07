@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sinhro.mentorapp">
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -17,9 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TaskListActivity" />
-        <activity android:name=".FullTaskActivity" />
-        <activity android:name=".ShowProfessionInfosActivity" />
+        <activity android:name=".ShowEventsListActivity"
+            />
+        <activity android:name=".ShowFullEventActivity"
+            />
+        <activity android:name=".ShowProfessionsActivity"
+            />
+
     </application>
 
 </manifest>
