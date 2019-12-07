@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/list_item_width"
+        android:layout_height="@dimen/list_item_height"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -17,7 +17,7 @@
         >
         <TextView
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="@dimen/list_items_text_size"
             android:id="@+id/events_list_item_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

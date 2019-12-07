@@ -1,9 +1,10 @@
 package com.sinhro.mentorapp.API;
 
+import android.content.Context;
 import android.os.Build;
+//import android.support.annotation.RequiresApi;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -13,8 +14,9 @@ import java.util.HashMap;
  * @author aNNiMON
  */
 public final class VkApi {
+    private  static Context context;
     private static final String API_VERSION = "5.21";
-
+    private static   String appid;
     private static final String AUTH_URL = "https://oauth.vk.com/authorize"
             + "?client_id={APP_ID}"
             + "&scope={PERMISSIONS}"
@@ -28,36 +30,33 @@ public final class VkApi {
             + "&access_token={ACCESS_TOKEN}"
             + "&v=" + API_VERSION;
 
-    public static VkApi with(String appId, String accessToken) throws IOException {
-        return new VkApi(appId, accessToken);
-    }
+
 
     private final String accessToken;
 
-    public VkApi(String appId, String accessToken) throws IOException {
+    public VkApi(String appId, String accessToken,Context context) throws IOException {
         this.accessToken = accessToken;
-        if (accessToken == null || accessToken.isEmpty()) {
-            auth(appId);
-            throw new Error("Need access token");
-        }
+        this.context=context;
+       this.appid=appId;
     }
 
-     public String auth(String appId) throws IOException {
+     public String auth() throws IOException {
         String reqUrl = AUTH_URL
-                .replace("{APP_ID}", appId)
+                .replace("{APP_ID}", appid)
                 .replace("{PERMISSIONS}", "photos")
                 .replace("{REDIRECT_URI}", "m.vk.com")
                 .replace("{DISPLAY}", "page")
                 .replace("{API_VERSION}", API_VERSION);
-         System.out.println(reqUrl);
-        invokeApi(reqUrl);
+
        return reqUrl;
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getDialogs() throws IOException {
         return invokeApi("messages.getDialogs", null);
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getHistory(String userId, int offset, int count, boolean rev) throws IOException {
         return invokeApi("messages.getHistory", Params.create()
                 .add("user_id", userId)
@@ -66,6 +65,7 @@ public final class VkApi {
                 .add("rev", rev ? "1" : "0"));
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getAlbums(String userId) throws IOException {
         return invokeApi("photos.getAlbums", Params.create()
                 .add("owner_id", userId)
@@ -73,6 +73,7 @@ public final class VkApi {
                 .add("thumb_src", "1"));
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private String invokeApi(String method, Params params) throws IOException {
          String parameters="";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -85,13 +86,29 @@ public final class VkApi {
         return invokeApi(reqUrl);
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String invokeApi(String requestUrl) throws IOException {
-        final StringBuilder result = new StringBuilder();
-        final URL url = new URL(requestUrl);
-        System.out.println(url);
-        new AsyncTask().execute(url);
+      /*  final StringBuilder result = new StringBuilder();
+        System.out.println("request is:"+requestUrl);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest request = new StringRequest
+                (Request.Method.GET, requestUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("req:"+response.toString());
 
-        return result.toString();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+
+                    }
+                });
+
+        requestQueue.add(request);
+        requestQueue.start();*/
+        return "";
     }
 
 
@@ -113,12 +130,13 @@ public final class VkApi {
             return this;
         }
 
+//        @RequiresApi(api = Build.VERSION_CODES.N)
         public String build() {
             if (params.isEmpty()) return "";
             final StringBuilder result = new StringBuilder();
-            params.keySet().forEach(key ->
-                    result.append(key).append('=').append(params.get(key)).append('&')
-            );
+            params.keySet().forEach(key -> {
+                result.append(key).append('=').append(params.get(key)).append('&');
+            });
             return result.toString();
         }
     }

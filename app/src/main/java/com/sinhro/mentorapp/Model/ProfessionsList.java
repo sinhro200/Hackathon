@@ -4,17 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ProfessionsList implements Serializable {
-    List<ProfessionInfo> professionInfoList;
+    List<Profession> professionList;
 
-    public ProfessionsList(List<ProfessionInfo> professionInfoList) {
-        this.professionInfoList = professionInfoList;
+    public ProfessionsList(List<Profession> professionList) {
+        this.professionList = professionList;
     }
 
-    public List<ProfessionInfo> getProfessionInfoList() {
-        return professionInfoList;
+    public List<Profession> getProfessionList() {
+        return professionList;
     }
 
-    public void setProfessionInfoList(List<ProfessionInfo> professionInfoList) {
-        this.professionInfoList = professionInfoList;
+    public void setProfessionList(List<Profession> professionList) {
+        this.professionList = professionList;
     }
+
+
 }

@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sinhro.mentorapp.API.MyRequestService;
 import com.sinhro.mentorapp.Model.EventsList;
 import com.sinhro.mentorapp.Model.FullEvent;
+import com.sinhro.mentorapp.Model.Profession;
 import com.sinhro.mentorapp.Model.ProfessionsList;
 
 import java.util.LinkedList;
@@ -32,7 +35,7 @@ public class ProfessionsListAdapter implements ListAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return true;
     }
 
     @Override
@@ -47,12 +50,12 @@ public class ProfessionsListAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return professionsList.getProfessionList().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return professionsList.getProfessionList().get(position);
     }
 
     @Override
@@ -72,13 +75,15 @@ public class ProfessionsListAdapter implements ListAdapter {
             convertView = inflater.inflate(R.layout.profession_list_item, null);
         }
 
-        TextView title = convertView.findViewById(R.id.profession_item_title);
-        title.setText(professionsList.getProfessionInfoList().get(position).getTitle());
+        List<Profession> professions =professionsList.getProfessionList();
+        Profession currProfession = professions.get(position);
 
-        TextView progressBar = convertView.findViewById(R.id.profession_item_progressBar);
-        progressBar.setText(String.valueOf(
-                professionsList.getProfessionInfoList().get(position).getPercent()
-        ));
+        TextView title = convertView.findViewById(R.id.profession_item_title);
+        title.setText(currProfession.name);
+
+        ProgressBar progressBar = convertView.findViewById(R.id.profession_item_progressBar);
+        progressBar.setMax(100);
+        progressBar.setProgress((int) (currProfession.getPercent()*100));
 
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +92,9 @@ public class ProfessionsListAdapter implements ListAdapter {
                 Intent intent = new Intent(context, ShowEventsListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                EventsList eventsList = loadEventsFor(professionsList.getProfessionInfoList().get(position).getTitle());
+                EventsList eventsList = MyRequestService.loadEventsFor(
+                        professionsList.getProfessionList().get(position).getName()
+                );
                 intent.putExtra(EventsList.class.getSimpleName(), eventsList);
 
                 context.startActivity(intent);
@@ -98,16 +105,7 @@ public class ProfessionsListAdapter implements ListAdapter {
         return convertView;
     }
 
-    private EventsList loadEventsFor(String profession){
-        List<FullEvent> eventsList = new LinkedList<>();
 
-        eventsList.add(new FullEvent(profession,"222","12:12","com1",1.1,2.2));
-        eventsList.add(new FullEvent(profession,"566","00:12","com1",13.1,266.2));
-        eventsList.add(new FullEvent(profession,"212","23:45","com1",13.31,25.2));
-        EventsList events = new EventsList(eventsList);
-
-        return events;
-    }
     private void moveToEvents(){
         Intent intent = new Intent(context, ShowEventsListActivity.class);
         List<FullEvent> eventsList = new LinkedList<>();

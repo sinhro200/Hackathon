@@ -30,7 +30,7 @@ public class MyLogger {
     }
 
     public String getLogs(){
-        log("Logs ended");
+        log("Getting logs");
         return stringBuilder.toString();
     }
 }

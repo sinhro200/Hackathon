@@ -1,7 +1,6 @@
 package com.sinhro.mentorapp;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,7 +14,7 @@ public class ShowEventsListActivity extends AppCompatActivity {
     private void initAllViews(){
         titleLinearLayout = findViewById(R.id.events_title_layout);
         View titleView = getLayoutInflater().inflate(
-                R.layout.events_title,titleLinearLayout,false
+                R.layout.title,titleLinearLayout,false
         );
         LinearLayout home = titleView.findViewById(R.id.events_title_leftButton);
         home.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +29,7 @@ public class ShowEventsListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.events_activity);
 
