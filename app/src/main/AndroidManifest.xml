@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".TaskListActivity" />
         <activity android:name=".FullTaskActivity" />
+        <activity android:name=".ShowProfessionInfosActivity" />
     </application>
 
 </manifest>
